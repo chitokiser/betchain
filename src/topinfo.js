@@ -39,7 +39,7 @@ document.getElementById("cPrice2").innerHTML=(1/bnbPrice).toFixed(4);
         let provider = new ethers.providers.JsonRpcProvider('https://opbnb-mainnet-rpc.bnbchain.org');
         let betdexContract = new ethers.Contract(cA.betdexAddr,cB.betdex, provider); 
         let dexBal = await betdexContract.balance();
-        document.getElementById("Tvl").innerHTML=  parseFloat(dexBal/5e17).toFixed(4); 
+        document.getElementById("Tvl").innerHTML=  parseFloat(dexBal/1e18).toFixed(4); 
           
       };
    

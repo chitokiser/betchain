@@ -1,27 +1,15 @@
 let contractAddress = {
-  metbank: "0x0ef1043e59a7f38aC1acBeB04CcA9714C4eb0098",
-  metmarket: "0xd9fC1B43BD9F37c8BAFC666CA88A74Ad8aDa2627" //mt5
+  butbank: "0x7af12A131182b966b813369Eb45393657a5a1bd5"  //butbank
+  
     
   };
   let contractAbi = {
    
-    metmarket: [
-      "function buy(uint _mid) public",
-      "function mid() public view returns (uint256)",
-      "function tax() public view returns (uint256)",
-      "function g1() public view virtual returns(uint256)",
-      "function selladd(uint _mid,uint256 _init) public",
-      "function getmainpass(uint _mid) external view returns (string memory)",
-      "function getpass(uint256 _mid) external view returns (string memory)",  //관람자패스
-      "function getmetainfo(uint _num) public view returns (uint256, uint256, string memory, uint256,uint8, address,address) ",
-      "function charge(uint _pay) public",
-      "function newmeta(uint _metanum,string memory _investor,uint256 _init,string memory _mainpass) public"
-     ],
+
    
-    metbank: [
+    butbank: [
       "function g1() public view virtual returns(uint256)",
-      "function g6() public view virtual returns(uint256)",
-      "function g7() public view virtual returns(uint256)",
+      "function g3() public view virtual returns(uint256)",
       "function g8(address user) public view virtual returns(uint256)",
       "function g9(address user) public view returns(uint)",
       "function g10() public view virtual returns(uint256)",
@@ -130,7 +118,7 @@ let contractAddress = {
   });
     await userProvider.send("eth_requestAccounts", []);
     let signer = userProvider.getSigner();
-    let cyamemContract = new ethers.Contract(contractAddress.metbank, contractAbi.metbank, signer);
+    let cyamemContract = new ethers.Contract(contractAddress.butbank, contractAbi.butbank, signer);
     let mylev = parseInt(await cyamemContract.getlevel(await signer.getAddress()));
     let mymento = (await cyamemContract.getmento(await signer.getAddress()));  
     let levelexp = (2**mylev)*10000;

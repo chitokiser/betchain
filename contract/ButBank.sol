@@ -2,7 +2,7 @@
 // ver1.0
 pragma solidity >=0.7.0 <0.9.0;
 
-interface Icya {     
+interface Ibet {     
   function balanceOf(address account) external view returns (uint256);
   function allowance(address owner, address spender) external view returns (uint256);
   function transfer(address recipient, uint256 amount) external returns (bool);
@@ -10,7 +10,7 @@ interface Icya {
   function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
 }
 
-interface Imut {      
+interface Ibut {      
   function balanceOf(address account) external view returns (uint256);
   function allowance(address owner, address spender) external view returns (uint256);
   function transfer(address recipient, uint256 amount) external returns (bool);
@@ -20,48 +20,61 @@ interface Imut {
   function getdepot(address user) external view returns(uint256);
 }
 
-contract Mutbank {
-  Icya cya;
-  Imut mut;
-  uint256 public totaltax; // 누적 세금
-  uint256 public tax;  // 시아쿱 세금
+contract butbank {
+  Ibet bet;
+  Ibut but;
+  uint256 public totaltax; 
+  uint256 public butAmount;
+  uint256 public tax;  
+  uint8 public act;  
   uint256 public allow;
-  address public bank; // 시아뱅크
+  address public bank; 
   address public admin;
-  uint256 public sum;   // 전체 참여 인원
-  uint256 public sold;  // vet 유통 수량
-  uint256 public fix;  // 토큰 가격 안정화를 위한 허수 초기값 1e6
-  address public owner; // 조합 거버넌스
-  uint256[] public chart; // 가격 챠트 구현을 위한 배열 저장
-  uint256 public price;  // mut 가격
+  uint256 public sum;   
+  uint256 public sold;  
+  uint8 public commission; 
+  uint256 public fix;  
+  address public owner; 
+  uint256[] public chart; 
+  uint256 public price;  
   mapping (address => my) public myinfo;
+  mapping (address => address[]) public mymenty;
   mapping (address => uint) public staff;
   mapping (address => uint) public fa;
-  mapping (address => uint) public allowt; // 배당 시간 
+  mapping (address => uint) public allowt; 
+  mapping (address => bool) public buffcheck;
   event getdepo(uint amount);
+
      
-  constructor(address _cya, address _mut, address _mutb) {
+  constructor(address _bet, address _but, address _butb) {
     fix = 1e16;  
-    cya = Icya(_cya);
-    mut = Imut(_mut);
-    bank = _mutb;  // mut 뱅크
+    bet = Ibet(_bet);
+    but = Ibut(_but);
+    bank = _butb;  
     price = 1e16;
     sold = 1000;
+    act =3 ;
     admin = msg.sender;
     staff[msg.sender] = 10;
     myinfo[msg.sender].level = 10;
+    commission = 30;
+    butAmount = 500;
   }
     
   struct my {
-    uint256 totaldepo; // 누적 배당 금액
+    uint256 totaldepo; 
     uint256 depo;
     uint256 level;
-    address agent;
     address mento; 
-    uint256 member;
     uint256 exp;
   }
     
+
+
+  function actup(uint8 _num) public {  
+    require(admin == msg.sender, "no admin"); 
+    act = _num;
+  }
   function staffup(address _staff, uint8 num) public {  
     require(admin == msg.sender, "no admin"); 
     staff[_staff] = num;
@@ -87,29 +100,15 @@ contract Mutbank {
     myinfo[_user].depo -= _depo;
   }
 
-  function agentadd(address _agent) public {   
-    require(staff[msg.sender] >= 5, "no staff");
-    myinfo[_agent].level = 10;
-    myinfo[_agent].agent = msg.sender;
-  } 
 
-  function mentoadd(address _mento) public {    // 에이젼트가 멘토 등록
-    require(myinfo[msg.sender].level >= 10, "no agent");
-    require(myinfo[_mento].agent == address(0), "already mento");
-    myinfo[_mento].level = 6;
-    myinfo[_mento].agent = msg.sender;
-    myinfo[_mento].mento = msg.sender;
-  } 
 
   function memberjoin(address _mento) public {  
     require(myinfo[msg.sender].level == 0, "already member"); 
-    require(myinfo[_mento].level >= 6, "no mento"); 
+    require(myinfo[_mento].level >= 2, "no mento"); 
     myinfo[msg.sender].level = 1;
     myinfo[msg.sender].mento = _mento;
-    myinfo[msg.sender].agent = myinfo[_mento].agent;
-    myinfo[_mento].member += 1;
+    mymenty[_mento].push(msg.sender);
     sum += 1;
-    taxout();
   }
 
   function ownerup(address _owner) public {  
@@ -119,22 +118,23 @@ contract Mutbank {
 
   function bankup(address _bank) public {  
     require(staff[msg.sender] >= 5, "no staff");
-    bank = _bank;   // 초기값은 metbank에 줄 것
+    bank = _bank;  
   }
 
-  function buymut(uint _num) public returns(bool) {  
+  function buybut(uint _num) public returns(bool) {  
     uint pay = _num * price;
-    require(g3() >= _num, "mut sold out");  
+    require(act >= 1, "Not for sale");  
+    require(g3() >= _num, "Cut sold out");  
     require(1 <= _num, "1 or more");
     require(1 <= myinfo[msg.sender].level, "no member");
-    require(cya.balanceOf(msg.sender) >= pay, "no cya"); 
-    cya.approve(msg.sender, pay); 
-    uint256 allowance = cya.allowance(msg.sender, address(this));
+    require(bet.balanceOf(msg.sender) >= pay, "no cya"); 
+    bet.approve(msg.sender, pay); 
+    uint256 allowance = bet.allowance(msg.sender, address(this));
     require(allowance >= pay, "Check the token allowance");
-    cya.transferFrom(msg.sender, address(this), pay);  
-    mut.transfer(msg.sender, _num);
+    bet.transferFrom(msg.sender, address(this), pay);  
+    but.transfer(msg.sender, _num);
     myinfo[msg.sender].exp += _num / 10;
-    myinfo[myinfo[msg.sender].mento].depo += pay * 10 / 100;
+    myinfo[myinfo[msg.sender].mento].depo += pay * commission / 100;
     allowt[msg.sender] = block.timestamp;
     priceup();
     tax += pay * 5 / 100;
@@ -147,30 +147,32 @@ function levelup() public {
     require(mylev >= 1  && myexp >= 2**mylev * 10000, "Insufficient requirements");
     myinfo[msg.sender].exp -= 2**mylev * 10000;
     myinfo[msg.sender].level += 1;
-    taxout();
+    myinfo[myinfo[msg.sender].mento].exp += mylev*5555;
 }
 
-function sellmut(uint num) public returns(bool) {      
+function sellcut(uint num) public returns(bool) {      
     uint256 pay = num * price;  
+    require(act >= 3, "Can't sell"); 
     require(1 <= num, "1 or more");
-    require(5 <= getlevel(msg.sender), "Level 5 or higher"); 
+    require(6 <= getlevel(msg.sender), "Level 6 or higher"); 
     require(g8(msg.sender) >= num, "no vet");
     require(g1() >= pay, "no cya");
-    mut.approve(msg.sender, num);
-    uint256 allowance = mut.allowance(msg.sender, address(this));
+    but.approve(msg.sender, num);
+    uint256 allowance = but.allowance(msg.sender, address(this));
     require(allowance >= num, "Check the allowance");
-    mut.transferFrom(msg.sender, address(this), num); 
-    cya.transfer(msg.sender, pay);
-    myinfo[msg.sender].level -= 1; // 레벨 1 줄어듬
+    but.transferFrom(msg.sender, address(this), num); 
+    bet.transfer(msg.sender, pay);
+    myinfo[msg.sender].level -= 1; 
     priceup();
     return true;
 }
 
-function allowcation() public returns(bool) {   // depo 증가
+function allowcation() public returns(bool) {   
+    require(act >= 2, "No dividend");  
     require(getlevel(msg.sender) >= 1, "no member");  
-    require(g8(msg.sender) >= 5000, "More than 5000VET"); 
-    require(allowt[msg.sender] + 7 days < block.timestamp, "not time"); // 주 1회
-    require(mut.getdepot(msg.sender) + 7 days < block.timestamp, "cut not time"); // 주 1회
+    require(g8(msg.sender) >= 5000, "More than 5000SUT"); 
+    require(allowt[msg.sender] + 7 days < block.timestamp, "not time"); 
+    require(but.getdepot(msg.sender) + 7 days < block.timestamp, "but not time"); 
     allowt[msg.sender] = block.timestamp;
     uint256 pay = getpay(msg.sender); 
     myinfo[msg.sender].depo += pay;
@@ -181,22 +183,33 @@ function allowcation() public returns(bool) {   // depo 증가
   
 function withdraw() public {    
     uint pay = myinfo[msg.sender].depo;
-    require(pay >= 1, "no deposit"); 
+    require(pay >= 1, "No commission to pay"); 
     myinfo[msg.sender].depo = 0;
-    require(pay <= g1(), "no cya");  
+    myinfo[myinfo[msg.sender].mento].depo += pay * commission/60; 
+    require(pay <= g1(), "no bet");  
     myinfo[msg.sender].totaldepo += pay;
-    cya.transfer(msg.sender, pay );
+    bet.transfer(msg.sender, pay );
 }
 
-function taxout() public {  
-    cya.transfer(bank, tax);
-    totaltax += tax;
-    tax = 0;
-}
-  
-function fixup(uint256 _fix) public {  // 토큰 가격 균형을 위한 허수
+ function buffing() public {  
+    require(but.balanceOf(msg.sender) >= butAmount, "BUT is not enough"); 
+    require(butbank.getlevel(msg.sender)>= 1, "Must be level 1 or higher"); 
+    require(buffcheck[msg.sender] == false, "Already got the buff"); 
+    
+    buffcheck[msg.sender] = true;
+    myinfo[msg.sender].level = 2;
+  }
+
+
+function fixup(uint256 _fix) public { 
     require(admin == msg.sender, "no admin");
     fix = _fix;  
+}  
+
+
+function commissionup(uint8 _commission) public {  
+    require(admin == msg.sender, "no admin");
+    commission = _commission;  
 }  
 
 function priceup() public {
@@ -208,11 +221,11 @@ function priceup() public {
 
 
 function g1() public view virtual returns(uint256) {  
-    return cya.balanceOf(address(this));
+    return bet.balanceOf(address(this));
 }
 
-function g3() public view returns(uint) { // cut 잔고 확인
-    return mut.balanceOf(address(this));
+function g3() public view returns(uint) { 
+    return but.balanceOf(address(this));
 }  
 
   function g4() public view virtual returns(uint){  
@@ -222,38 +235,36 @@ function g3() public view returns(uint) { // cut 잔고 확인
   return chart[_num];
   }
 function g6() public view virtual returns(uint256){  
-  return mut.balanceOf(address(this));
+  return but.balanceOf(address(this));
   }
-function g8(address user) public view returns(uint) {  // 유저 cct 잔고 확인
-    return mut.balanceOf(user);
+function g8(address user) public view returns(uint) {  
+    return but.balanceOf(user);
 }  
 
-function g9(address user) public view returns(uint) {  // f
+function g9(address user) public view returns(uint) {  
     return myinfo[user].depo;
 }  
 
-function getlevel(address user) public view returns(uint) {  // 유저 레벨 확인
+function getlevel(address user) public view returns(uint) {  
     return myinfo[user].level;
 }  
 
-function getagent(address user) public view returns(address) {  // 유저 에이젼트
-    return myinfo[user].agent;
-}  
+
     
-function getmento(address user) public view returns(address) {  // 유저 멘토
+function getmento(address user) public view returns(address) {  
     return myinfo[user].mento;
 }  
 
 function g10() public view virtual returns(uint256) {  
-    return mut.g1();  
+    return but.g1();  
 }
 
 function g11() public view virtual returns(uint256) {  
-    return g10() - g3();  // vet 총발행량 - 계약이 가지고 있는 met
+    return g10() - g3();  
 }
   
 
-function getpay(address user) public view returns (uint256) { // next dividend
+function getpay(address user) public view returns (uint256) { 
     return g8(user) * allow * getlevel(user) / 2000;
 }
   
@@ -263,6 +274,10 @@ function gettime() public view returns (uint256) {
 
 function getprice() public view returns (uint256) {  
     return price;
+}
+
+function getmymenty(address user) public view returns (address[]memory) {  
+    return mymenty[user];
 }
 
 function deposit() external payable {}
