@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <link rel="shortcut icon" href="https://i.ibb.co/3YqKwff/bg.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="\css\main.css">
+    <title>Welcome to MetaDAO</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <img src="\images\logo\logo58x52.png" alt="" width="58" height="52">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            
+                    <li class="nav-item">
+                        <a class="nav-link" href="../mypage.html">My page</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Exchange
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a class="dropdown-item" href="../cyadex.html">CYA Exchange</a></li>
+                        <li class="dropdown-item"><a class="dropdown-item" href="../mt5/mt1.html">MT5 Exchange</a></li>
+                        <li class="dropdown-item"><a class="dropdown-item" href="../mut.html">MUT Exchange</a></li>
+                        
+                      </ul>
+                    </li>  
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Defi
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a class="dropdown-item" href="../metafarm.html">MetaFarm</a></li>
+                        <li class="dropdown-item"><a class="dropdown-item" href="../metaq.html">MetaQ</a></li>     
+                        <li class="dropdown-item"><a class="dropdown-item" href="../metatrain.html">MetaTrain</a></li> 
+                        <li class="dropdown-item"><a class="dropdown-item" href="../metatrain2.html">MetaTrain2</a></li>     
+                      </ul>
+                    </li>  
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Add information to wallet
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-item"><a class="dropdown-item" href="#" onclick="Tmemberjoin()">Member registration</a>
+                    </li>
+                    <li class="dropdown-item"><a class="dropdown-item" href="#" onclick="addTokenCya()">Add CYA token</a>
+                  </li>
+                 
+                  <li class="dropdown-item"><a class="dropdown-item" href="#" onclick="addTokenMut()">Add MUT</a>
+                </li>
+               
+                  </ul>
+                </li>
+
+                </ul>
+       
+            </div>
+        </div>
+    </nav>
+    
+  <!--Head up to here -->
+  
+  
+  <body>
+
+
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+          <img src="..\images\logo\meta5\meta2.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <span style="color:rgb(255, 255, 255)">High success probability</span>
+            <p>Free indigate and automated trading, etc., with announcement of global economic indicators</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+          <img src="..\images\logo\meta5\metatrader.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Various stocks</h5>
+            <p>Over 30 types of currency pair trading, resource futures trading, etc.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="..\images\logo\meta5\beta.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+ 
+            <span style="color:rgb(238, 229, 229)">Compatibility across desktop Galaxy and Android tablet PCs.</span>
+        
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Carousel to here -->
+    <div class="bg-light p-5 round">
+      <h5>MetaTrade5 Exchange</h5>
+    
+      <p>Exchange application fee: <span id="Fee">-</span>CYA</p>
+      <p>Total Exchange : <span id="Eid">-</span></p>
+      <p>Transaction possible after charging points with CYA</p>
+      <p>When transacting on your account, please use your viewer password to ensure the selling price is at least 1/10th of your account balance</p>
+      </div>
+
+   
+    <div class="alert alert-light" role="alert">
+      <table class="table table-hover">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+            
+                <tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td><a href="https://www.metatrader5.com/"><img src="https://www.metatrader5.com/i/metatrader-5-logo.png" alt="" width ="105" height="25"></a></td>
+                  <td>Download and install the PC version <a class="link" href="https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe?utm_source=www. metatrader5.com&utm_campaign=download">Download MetaTrader 5 for Window</a></td>
+                 
+                  <td><a href="https://www.metatrader5.com/">MT5 official website</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td><img src="https://t1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/24xs/image/ZUX28SL8O8Ak_lzMql5clcczSR0.png" alt ="" width="50" height="25"></td>
+                  <td>For the mobile version, search for MT5 in the smartphone Play Store and download it</td>
+                  <td><a href="https://download.mql5.com/cdn/mobile/mt5/android?utm_source=www.metatrader5.com&utm_campaign=install.metaquotes">Google Play Store</a></td>
+                </tr>
+                 
+              
+                <tr>
+                  <th scope="row">3</th>
+                  <td><a href="https://kr.investing.com/economic-calendar/"><img src="https://i-invdn-com.investing.com/logos/investing-com-logo-2022.png" alt="" width="100" height="25"></a></td>
+                  <td>Real-time provision of economic issues around the world</td>
+                  <td><a href="https://kr.investing.com/economic-calendar/">Economic Calendar</a></td>
+                </tr>
+
+                
+                <tr>
+                  <th scope="row">3</th>
+                  <td><a href="https://www.metatrader5.com/"><img src="https://www.metatrader5.com/i/metatrader-5-logo.png" alt="" width="100" height="25"></a></td>
+                  <td>ATR-based automatic trading EA Driftrust_atr_v1.0</td>
+                  <td><a href="..\file\drift_atr_1.0.zip">Driftrust_atr_v1.0</a></td>
+                </tr>
+
+                
+                <tr>
+                  <th scope="row">3</th>
+                  <td><a href="https://www.metatrader5.com/"><img src="https://www.metatrader5.com/i/metatrader-5-logo.png" alt="" width="100" height="25"></a></td>
+                  <td>ADX&ADMI-based automatic trading EA</td>
+                  <td><a href="..\file\Driftrust_ADXMA_V1.0.mq5">Driftrust_adxma_v1.0</a></td>
+                </tr>
+  
+              </tbody>
+            </table>
+   </div>
+ 
+
+
+  <!-- exchange from here -->
+
+
+  <div class="dropdown">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Go to exchange
+    </a>
+  
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="../mt5/mt1.html">exchange home</a></li>
+      <li><a class="dropdown-item" href="../mt5/monkey.html">monkey</a></li>
+      <li><a class="dropdown-item" href="../mt5/lion.html">lion</a></li>
+      <li><a class="dropdown-item" href="../mt5/lim0191.html">lim0191</a></li>
+      <li><a class="dropdown-item" href="../mt5/tiger.html">tiger</a></li>
+    </ul>
+  </div>
+  
+  <!-- exchange to here -->
+
+  <p></p>
+
+  <div class="d-grid gap-2">
+    <button class="btn btn-dark" type="button">Point recharge</button>
+  </div>
+<div class="input-group mb-3">
+  <input type="text" id="chargeAmount" class="form-control" placeholder="Enter the points to recharge (1CYA=1P)" aria-label="CYA"
+    aria-describedby="basic-addon2">
+  <span class="input-group-text" id="basic-addon2" style="cursor: pointer;" onclick="Charge()">Charge points</span>
+</div>
+<div class="d-grid gap-2">
+  <button class="btn btn-dark" type="button">Apply to open an exchange<button>
+</div>
+
+<p>1. Please register as a mentor first.</p>
+<div class="input-group mb-3">
+ 
+ <input type="text" id="mentoaddress" class="form-control" placeholder="Please enter your mentor address" aria-label="CYA"
+    aria-describedby="basic-addon2">
+  <span class="input-group-text" id="basic-addon2" style="cursor: pointer;" onclick="exMemberjoin()">Mentor Registration</span>
+</div>
+
+<p>2. Enter the name of the exchange you wish to open</p>
+<div class="input-group mb-3">
+ 
+ <input type="text" id="exname" class="form-control" placeholder="Please enter the exchange name" aria-label="CYA"
+    aria-describedby="basic-addon2">
+  <span class="input-group-text" id="basic-addon2" style="cursor: pointer;" onclick="Oper()">Exchange opening application</span>
+</div>
+ 
+
+<button class="btn btn-outline-success" id="basic-addon2" type="submit" onclick="exLogin()">
+  View my status [Connect wallet]
+</button>
+
+
+<li class="list-group-item">My Mentor = <span id="Mymento">-</span></li>
+<li class="list-group-item">Points can be converted = <span id="Mypoint">-</span>p</li>
+<button type="button" class="btn btn-primary btn-sm mr-2" onclick="Getmymenty()" data-id="">View my mentees</button>
+<button type="button" class="btn btn-primary btn-sm mr-2" onclick="Withdraw()" data-id="">Point conversion</button>
+</div>
+ 
+                 
+
+
+ 
+
+  
+ 
+     <!--Start footer -->
+
+     <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      <p><a class="nav-link" href="https://twitter.com/choecheolung8">MetaDAO X</a></p>
+      <p>We do not collect personal information</p>
+      <p><a class="nav-link" href="https://t.me/cyadaokorea">Telegram</a></p>
+ <!-- End footer -->
+
+</main>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript"></script>
+<script src="../src/topinfo.js"></script>
+<script src="../src/mt1.js"></script>
+<script src="../src/exchangRegist.js"></script>
+
+
+
+</body>
+</div>
+
+</html>
